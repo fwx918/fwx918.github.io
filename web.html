@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>复利计算器</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: #f3f4f6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .calculator {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 100%;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 24px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 500;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px 12px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #4f46e5;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #4338ca;
+    }
+
+    #result {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #10b981;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <h2>复利计算器</h2>
+    <label>本金（元）</label>
+    <input id="principal" type="number" step="0.01" placeholder="例如：10000">
+
+    <label>年利率（%）</label>
+    <input id="rate" type="number" step="0.01" placeholder="例如：5">
+
+    <label>存款年数</label>
+    <input id="years" type="number" placeholder="例如：10">
+
+    <label>每年复利次数</label>
+    <input id="n" type="number" value="1" placeholder="例如：12（按月）">
+
+    <button onclick="calculate()">计算</button>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function calculate() {
+      const P = parseFloat(document.getElementById('principal').value);
+      const r = parseFloat(document.getElementById('rate').value) / 100;
+      const t = parseFloat(document.getElementById('years').value);
+      const n = parseInt(document.getElementById('n').value);
+
+      if (isNaN(P) || isNaN(r) || isNaN(t) || isNaN(n)) {
+        document.getElementById('result').innerText = "请填写所有字段";
+        return;
+      }
+
+      const A = P * Math.pow(1 + r / n, n * t);
+      document.getElementById('result').innerText = `最终金额为：${A.toFixed(2)} 元`;
+    }
+  </script>
+</body>
+</html>
